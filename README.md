@@ -1,16 +1,16 @@
-Membresías del GYM 🏋️‍♂️
+#Membresías del GYM 🏋️‍♂️
 
 Sistema distribuido para la gestión de usuarios, planes de membresía, pagos y control de acceso en gimnasios con múltiples sedes.
 El proyecto está diseñado con arquitectura de microservicios, aplicaciones web y móvil, e integración con herramientas modernas de desarrollo, despliegue y gestión.
 
-📌 Descripción
+#📌 Descripción
 
 El sistema permite a clientes registrarse, pagar, renovar membresías y acceder al gimnasio mediante códigos QR.
 Los administradores pueden gestionar usuarios, membresías, pagos y obtener reportes en tiempo real.
 
 Se construye bajo un enfoque ágil (Scrum) utilizando JIRA para la gestión de épicas/sprints y GitHub para el control de versiones.
 
-🎯 Objetivos
+#🎯 Objetivos
 General
 
 Diseñar e implementar un sistema distribuido de gestión de membresías que integre autenticación, membresías, pagos, control de acceso y reportes, garantizando alta disponibilidad, seguridad y escalabilidad.
@@ -31,8 +31,8 @@ Definir arquitectura distribuida con microservicios y mensajería asíncrona.
 
 Evaluar persistencia SQL y NoSQL (polyglot persistence).
 
-🛠️ Tecnologías
-Frontend
+#🛠️ Tecnologías
+   #Frontend
 
 Vue.js (web admin)
 
@@ -42,7 +42,7 @@ Tailwind / Vuetify, Axios, Vue Router, Pinia
 
 Pruebas: Vitest/Jest, Playwright
 
-Backend
+#Backend
 
 Java + Spring Boot (microservicios: Autenticación, Usuarios, Membresías, Pagos, Acceso, Reportes)
 
@@ -70,7 +70,7 @@ GitHub Actions para CI/CD
 
 Observabilidad: Prometheus + Grafana, ELK/EFK, OpenTelemetry
 
-🏗️ Arquitectura
+#🏗️ Arquitectura
 Microservicios principales
 
 Auth & Users Service → Login, roles, JWT
@@ -87,7 +87,7 @@ API Gateway → Autenticación, enrutamiento y rate limiting
 
 Service Registry & Config → Descubrimiento y configuración centralizada
 
-📲 Historias de Usuario (ejemplos)
+#📲 Historias de Usuario (ejemplos)
 
 Cliente: registrarse, pagar membresía, ingresar con QR, consultar asistencias.
 
@@ -95,8 +95,8 @@ Administrador: gestionar membresías, ver ingresos, consultar estadísticas de a
 
 Sistema: replicación de servicios críticos, balanceo de carga, almacenamiento distribuido.
 
-📅 Roadmap Académico
-Corte 1 – Fundamentos (Semanas 1-4)
+#📅 Roadmap Académico
+~#Corte 1 – Fundamentos (Semanas 1-4)
 
 Requerimientos, mockups, diagramas
 
@@ -126,3 +126,4 @@ Juan Felipe Narvaez Amaya
 
 Dirigido por: Jesús Ariel González Bonilla
 Corporación Universitaria del Huila – Ingeniería de Sistemas
+jira url https://gymetra.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog?epics=visible&issueParent=10001%2C10014%2C-7320340678%2C10024&atlOrigin=eyJpIjoiNWMyYWZhMDQ3MDA3NGQ5YzkwMWE1MDYyOWRmMmIwZDMiLCJwIjoiaiJ9
