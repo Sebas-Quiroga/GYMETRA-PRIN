@@ -372,8 +372,8 @@ User "1" -- "N" AccessLog
       <pre><code>@startuml
 title GYMETRA Booking – Sequence Diagram
 
-actor Cliente
-boundary AppMovil as App
+actor Client
+boundary MobileApp as App
 control Gateway
 control AuthService
 control MembershipsService
@@ -381,36 +381,36 @@ control PaymentsService
 control AccessService
 database PostgreSQL
 
-== Registro/Login ==
-Cliente -> App : Ingresa credenciales
+== Registration/Login ==
+Client -> App : Enter credentials
 App -> Gateway : POST /auth/login
-Gateway -> AuthService : validarCredenciales()
-AuthService -> PostgreSQL : consultar usuario
+Gateway -> AuthService : validateCredentials()
+AuthService -> PostgreSQL : query user
 AuthService --> Gateway : JWT Token
 Gateway --> App : JWT Token
 
-== Renovación de Membresía ==
-Cliente -> App : Selecciona renovar plan
+== Membership Renewal ==
+Client -> App : Select renew plan
 App -> Gateway : POST /membership/renew (JWT)
-Gateway -> MembershipsService : renovarMembresia()
-MembershipsService -> PaymentsService : crearOrdenPago()
-PaymentsService -> Pasarela : procesarPago()
-Pasarela --> PaymentsService : confirmación
-PaymentsService -> PostgreSQL : registrar pago
-PaymentsService -> MembershipsService : evento pago-confirmado
-MembershipsService -> PostgreSQL : actualizar vigencia
+Gateway -> MembershipsService : renewMembership()
+MembershipsService -> PaymentsService : createPaymentOrder()
+PaymentsService -> PaymentGateway : processPayment()
+PaymentGateway --> PaymentsService : confirmation
+PaymentsService -> PostgreSQL : register payment
+PaymentsService -> MembershipsService : event payment-confirmed
+MembershipsService -> PostgreSQL : update validity
 MembershipsService --> Gateway : OK
-Gateway --> App : Membresía renovada ✅
+Gateway --> App : Membership renewed ✅
 
-== Acceso con QR ==
-Cliente -> App : Genera código QR
+== QR Access ==
+Client -> App : Generate QR code
 App -> Gateway : GET /access/validate (QR)
-Gateway -> AccessService : validarAcceso(QR, JWT)
-AccessService -> AuthService : verificar usuario
-AccessService -> MembershipsService : verificar membresía activa
-AccessService -> PostgreSQL : registrar acceso
-AccessService --> Gateway : acceso permitido
-Gateway --> App : acceso concedido 🚪
+Gateway -> AccessService : validateAccess(QR, JWT)
+AccessService -> AuthService : verify user
+AccessService -> MembershipsService : verify active membership
+AccessService -> PostgreSQL : register access
+AccessService --> Gateway : access granted
+Gateway --> App : access allowed 🚪
 @enduml
 
 </code></pre>
@@ -424,16 +424,16 @@ Gateway --> App : acceso concedido 🚪
       <pre><code>@startuml
 title GYMETRA System – Deployment Diagram
 
-node "Cliente" {
-  node "Dispositivo Móvil" {
-    component "App Móvil (Ionic+Vue)" as AppMovil
+node "Client" {
+  node "Mobile Device" {
+    component "Mobile App (Ionic+Vue)" as MobileApp
   }
-  node "PC/Navegador" {
-    component "App Web (Vue.js)" as AppWeb
+  node "PC/Browser" {
+    component "Web App (Vue.js)" as WebApp
   }
 }
 
-node "Nube Kubernetes Cluster" {
+node "Cloud Kubernetes Cluster" {
   node "API Gateway" {
     component "Spring Cloud Gateway"
   }
@@ -442,53 +442,51 @@ node "Nube Kubernetes Cluster" {
     component "Eureka/Consul"
   }
 
-  node "Microservicios" {
+  node "Microservices" {
     component "AuthService\n(Spring Boot)" as Auth
-    component "UsuariosService\n(Spring Boot)" as Users
-    component "MembershipsService\n(Spring Boot)" as Membresias
-    component "PaymentsService\n(Spring Boot)" as Pagos
-    component "AccessService\n(Spring Boot)" as Accesos
-    component "ReportsService\n(Spring Boot)" as Reportes
+    component "UsersService\n(Spring Boot)" as Users
+    component "MembershipsService\n(Spring Boot)" as Memberships
+    component "PaymentsService\n(Spring Boot)" as Payments
+    component "AccessService\n(Spring Boot)" as Access
+    component "ReportsService\n(Spring Boot)" as Reports
   }
 
-  node "Mensajería" {
+  node "Messaging" {
     component "RabbitMQ/Kafka"
   }
 
-  node "Base de Datos" {
+  node "Database" {
     database "PostgreSQL"
   }
 
-  node "Observabilidad" {
+  node "Observability" {
     component "Prometheus"
     component "Grafana"
     component "ELK/EFK"
   }
 }
 
-AppMovil --> "Spring Cloud Gateway"
-AppWeb --> "Spring Cloud Gateway"
+MobileApp --> "Spring Cloud Gateway"
+WebApp --> "Spring Cloud Gateway"
 "Spring Cloud Gateway" --> Auth
 "Spring Cloud Gateway" --> Users
-"Spring Cloud Gateway" --> Membresias
-"Spring Cloud Gateway" --> Pagos
-"Spring Cloud Gateway" --> Accesos
-"Spring Cloud Gateway" --> Reportes
+"Spring Cloud Gateway" --> Memberships
+"Spring Cloud Gateway" --> Payments
+"Spring Cloud Gateway" --> Access
+"Spring Cloud Gateway" --> Reports
 
 Auth --> "PostgreSQL"
 Users --> "PostgreSQL"
-Membresias --> "PostgreSQL"
-Pagos --> "PostgreSQL"
-Accesos --> "PostgreSQL"
-Reportes --> "PostgreSQL"
+Memberships --> "PostgreSQL"
+Payments --> "PostgreSQL"
+Access --> "PostgreSQL"
+Reports --> "PostgreSQL"
 
-Pagos --> "RabbitMQ/Kafka"
-Accesos --> "RabbitMQ/Kafka"
-Membresias --> "RabbitMQ/Kafka"
+Payments --> "RabbitMQ/Kafka"
+Access --> "RabbitMQ/Kafka"
+Memberships --> "RabbitMQ/Kafka"
 @enduml
 
-
-@enduml
 </code> </pre>
     </div>
 
