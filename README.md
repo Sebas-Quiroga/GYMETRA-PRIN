@@ -1,129 +1,190 @@
-#Membresías del GYM 🏋️‍♂️
+# 🏋️ Gym Membership Management System
 
-Sistema distribuido para la gestión de usuarios, planes de membresía, pagos y control de acceso en gimnasios con múltiples sedes.
-El proyecto está diseñado con arquitectura de microservicios, aplicaciones web y móvil, e integración con herramientas modernas de desarrollo, despliegue y gestión.
+## 📋 Description
 
-#📌 Descripción
+Distributed system for comprehensive gym membership management, developed as an academic project for the Distributed Systems course. The solution includes user administration, membership plans, payments, QR code access control, and report generation.
 
-El sistema permite a clientes registrarse, pagar, renovar membresías y acceder al gimnasio mediante códigos QR.
-Los administradores pueden gestionar usuarios, membresías, pagos y obtener reportes en tiempo real.
+### ✨ Key Features
 
-Se construye bajo un enfoque ágil (Scrum) utilizando JIRA para la gestión de épicas/sprints y GitHub para el control de versiones.
+- 🔐 **Authentication & Authorization** with JWT and roles (Administrator, Client)
+- 👥 **User Management** with registration, login, and profiles
+- 💳 **Membership Management** (registration, renewal, suspension)
+- 💰 **Payment Processing** with external gateway integration
+- 📱 **QR Access Control** for real-time validation
+- 📊 **Reports & Analytics** for revenue and attendance
+- 🏗️ **Distributed Microservices Architecture** scalable and resilient
 
-#🎯 Objetivos
-General
+## 🏗️ Architecture
 
-Diseñar e implementar un sistema distribuido de gestión de membresías que integre autenticación, membresías, pagos, control de acceso y reportes, garantizando alta disponibilidad, seguridad y escalabilidad.
+### Microservices
+- **Auth & Users Service**: Authentication and user management
+- **Memberships Service**: Plans and membership management
+- **Payments Service**: Payment processing and reconciliation
+- **Access Control Service**: QR validation and access logging
+- **Reports Service**: Report generation and analytics
+- **API Gateway**: Routing and cross-cutting policies
 
-Específicos
+### Tech Stack
 
-Implementar autenticación y autorización con roles (Administrador, Cliente) usando JWT/OAuth2.
+#### Backend
+- **Framework**: Spring Boot 3.x
+- **Security**: Spring Security + JWT/OAuth2
+- **Database**: PostgreSQL (main) + MongoDB/Cassandra (analytics)
+- **Messaging**: RabbitMQ/Apache Kafka
+- **Documentation**: OpenAPI/Swagger
 
-Desarrollar el módulo de membresías (alta, renovación, suspensión, vencimiento).
+#### Frontend
+- **Web Admin**: Vue.js 3 + Vuetify/Tailwind CSS
+- **Mobile App**: Ionic + Vue.js (hybrid)
+- **State Management**: Pinia/Vuex
+- **Testing**: Vitest/Jest + Playwright
 
-Construir el módulo de pagos con pasarelas externas.
+#### Infrastructure
+- **Containers**: Docker
+- **Orchestration**: Kubernetes
+- **CI/CD**: GitHub Actions
+- **Observability**: Prometheus + Grafana + ELK Stack
+- **Cloud**: AWS/GCP
 
-Diseñar el control de acceso basado en código QR y validación en tiempo real.
+## 🚀 Installation & Setup
 
-Generar reportes de ingresos y asistencias.
+### Prerequisites
+- Java 17+
+- Node.js 18+
+- Docker & Docker Compose
+- PostgreSQL 14+
+- Git
 
-Definir arquitectura distribuida con microservicios y mensajería asíncrona.
+### Local Setup
 
-Evaluar persistencia SQL y NoSQL (polyglot persistence).
+1. **Clone the repository**
+```bash
+git clone https://github.com/your-username/gym-membership-system.git
+cd gym-membership-system
+```
 
-#🛠️ Tecnologías
-   #Frontend
+2. **Set up environment variables**
+```bash
+cp .env.example .env
+# Edit .env with your configurations
+```
 
-Vue.js (web admin)
+3. **Run with Docker Compose**
+```bash
+docker-compose up -d
+```
 
-Ionic + Vue (app móvil)
+4. **Access applications**
+- Web Admin: http://localhost:3000
+- API Gateway: http://localhost:8080
+- API Documentation: http://localhost:8080/swagger-ui.html
 
-Tailwind / Vuetify, Axios, Vue Router, Pinia
 
-Pruebas: Vitest/Jest, Playwright
 
-#Backend
+## 📚 Documentation
 
-Java + Spring Boot (microservicios: Autenticación, Usuarios, Membresías, Pagos, Acceso, Reportes)
+### Project Structure
+```
+gym-membership-system/
+├── backend/
+│   ├── auth-service/
+│   ├── membership-service/
+│   ├── payment-service/
+│   ├── access-control-service/
+│   ├── reports-service/
+│   └── api-gateway/
+├── frontend/
+│   ├── web-admin/
+│   └── mobile-app/
+├── infrastructure/
+│   ├── docker/
+│   └── k8s/
+├── docs/
+│   ├── api/
+│   ├── architecture/
+│   └── user-stories/
+└── scripts/
+```
 
-Comunicación vía REST + RabbitMQ/Kafka
+### Main APIs
 
-Seguridad: OAuth2 + JWT
+#### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/refresh` - Token refresh
 
-Documentación de APIs con Swagger/OpenAPI
+#### Memberships
+- `GET /api/memberships` - List plans
+- `POST /api/memberships` - Create membership
+- `PUT /api/memberships/{id}` - Update membership
 
-Base de Datos
+#### Access Control
+- `POST /api/access/validate-qr` - Validate QR code
+- `GET /api/access/history` - Access history
 
-PostgreSQL / MySQL (usuarios, membresías, pagos)
+### Architecture Diagrams
+- [Component Diagram](docs/architecture/components.md)
+- [Sequence Diagram](docs/architecture/sequence.md)
+- [Data Model](docs/architecture/data-model.md)
 
-MongoDB / Cassandra (logs y analítica en tiempo real)
 
-Migraciones con Liquibase/Flyway
 
-Infraestructura
 
-Contenedores con Docker
+## 📊 Project Management
 
-Orquestación con Kubernetes
+### Methodology
+- **Framework**: Scrum
+- **Management**: JIRA (Epics, User Stories, Sprints)
+- **Documentation**: Confluence
+- **Version Control**: Git with GitFlow
 
-GitHub Actions para CI/CD
+### Timeline (September - November 2025)
+- **Epic 1** (Sep 01-12): Requirements and definition
+- **Epic 2** (Sep 13-24): Authentication and users
+- **Epic 3** (Sep 25-Oct 04): Memberships and QR access
+- **Epic 4** (Oct 05-19): Payments and integration
+- **Epic 5** (Oct 20-24): Reports and administration
+- **Epic 6** (Oct 25-Nov 10): Distributed infrastructure
 
-Observabilidad: Prometheus + Grafana, ELK/EFK, OpenTelemetry
+## 👥 Development Team
 
-#🏗️ Arquitectura
-Microservicios principales
+- **Jhon Jamez Nieto Perez** - Backend Developer
+- **Johan Sebastian Naranjo Quiroga** - Frontend Developer
+- **Juan Felipe Narvaez Amaya** - DevOps/Infrastructure
 
-Auth & Users Service → Login, roles, JWT
+**Professor**: Jesus Ariel Gonzalez Bonilla  
+**Institution**: Corporación Universitaria del Huila  
+**Course**: Distributed Systems - 8th Semester
 
-Memberships Service → Gestión de planes y renovaciones
+## 🤝 Contributing
 
-Payments Service → Pagos y conciliación con pasarelas
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -m 'Add: new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
-Access Control Service → Validación QR y registro de accesos
+### Commit Conventions
+- `feat:` New feature
+- `fix:` Bug fixes
+- `docs:` Documentation
+- `refactor:` Code refactoring
+- `test:` Tests
+- `chore:` Maintenance
 
-Reports Service → Reportes de ingresos y asistencias
+## 🔗 Useful Links
 
-API Gateway → Autenticación, enrutamiento y rate limiting
+- [📝 JIRA Board](https://gymetra.atlassian.net/jira/software/projects/SCRUM/boards/1)  
+- [🎨 Figma Design](https://www.figma.com/design/6wvsYaVryxBWp2NIUM2zci/GYMETRA-PRIN?node-id=0-1&p=f&t=JSPiUM0bfykeal7f-0)  
+- [📂 GitHub Repository](https://github.com/Sebas-Quiroga/GYMETRA-V1)  
 
-Service Registry & Config → Descubrimiento y configuración centralizada
 
-#📲 Historias de Usuario (ejemplos)
+## 📄 License
 
-Cliente: registrarse, pagar membresía, ingresar con QR, consultar asistencias.
+This project is developed for academic purposes at Corporación Universitaria del Huila.
 
-Administrador: gestionar membresías, ver ingresos, consultar estadísticas de asistencia.
 
-Sistema: replicación de servicios críticos, balanceo de carga, almacenamiento distribuido.
 
-#📅 Roadmap Académico
-~#Corte 1 – Fundamentos (Semanas 1-4)
+---
 
-Requerimientos, mockups, diagramas
-
-Login y gestión básica de usuarios
-
-Corte 2 – Core del negocio (Semanas 5-8)
-
-Gestión de membresías
-
-Control de acceso básico
-
-Corte 3 – Optimización y despliegue (Semanas 9-12)
-
-Pagos y reportes
-
-Dockerización y Kubernetes
-
-CI/CD con GitHub Actions
-
-👥 Autores
-
-Jhon Jamez Nieto Perez
-
-Johan Sebastian Naranjo Quiroga
-
-Juan Felipe Narvaez Amaya
-
-Dirigido por: Jesús Ariel González Bonilla
-Corporación Universitaria del Huila – Ingeniería de Sistemas
-jira url https://gymetra.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog?epics=visible&issueParent=10001%2C10014%2C-7320340678%2C10024&atlOrigin=eyJpIjoiNWMyYWZhMDQ3MDA3NGQ5YzkwMWE1MDYyOWRmMmIwZDMiLCJwIjoiaiJ9
+⭐ **Give the project a star if it was helpful!** ⭐
